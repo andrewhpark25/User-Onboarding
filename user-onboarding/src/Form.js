@@ -6,6 +6,7 @@ const formSchema = yup.object().shape({
     name: yup.string().required("Name is a required field").min(2, "Name must be at least 2 characters long"),
     email: yup.string().email().required("Must include an email"), //type set as email so it shows error if not in proper email form in addition to this.
     password: yup.string().required("Must include password").min(6, "Password must be at least 6 characters long"),
+    role: yup.string().oneOf(['Frontend developer', 'Backend developer', 'Designer']),
     terms: yup.boolean().oneOf([true], "Please agree to terms of use"),
 
 })
@@ -19,7 +20,9 @@ export default function Form() {
         name: '',
         email:'',
         password:'',
+        role:'',
         terms:'',
+      
       
       });
 
@@ -27,7 +30,9 @@ export default function Form() {
          name: '',
         email:'',
         password:'',
+        role:'',
         terms:'',
+        
       
       });
 
@@ -78,6 +83,7 @@ const onFormSubmit = event => {
         name: '',
         email:'',
         password:'',
+        role:'',
         terms:'',
       });
     })
@@ -136,7 +142,13 @@ const onInputChange = event => {
           <p className="error">{errors.password}</p>
         ) : null}
         </label><br />
-
+        <label htmlFor='role'>
+          <select id='role' name='role' value={formValues.role} onChange={onInputChange}>
+            <option>Frontend developer</option>
+            <option>Backend developer</option>
+            <option>Designer</option>
+          </select>
+        </label>
         <label htmlFor="terms" id="terms" className="terms">
             <input type="checkbox" name="terms" checked={formValues.terms} onChange={onInputChange}/>
             {errors.terms.length > 0  ? (
